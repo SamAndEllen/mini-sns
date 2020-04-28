@@ -71,3 +71,9 @@ export default {
   }
 };
 </script>
+
+<style>
+.v-toolbar__content {
+  border-bottom: 1px solid #e0e0e0 !important;
+}
+</style>
