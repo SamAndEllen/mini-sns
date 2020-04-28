@@ -1,39 +1,35 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
+    <v-app-bar app color="white" flat>
+      <router-link to="/" tag="button">
+        <div class="d-flex align-center">
+          <v-img
+            alt="Vuetify Logo"
+            class="shrink mr-2"
+            contain
+            src="https://img.icons8.com/color/80/000000/messaging-.png"
+            transition="scale-transition"
+            width="40"
+          />
+          <h2 class="ml-2">MINI SNS</h2>
+        </div>
+      </router-link>
 
       <v-spacer></v-spacer>
 
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
+      <router-link to="/signup" tag="button" v-if="!getMemberName">
+        <v-btn text>
+          <span>Signup</span>
+        </v-btn>
+      </router-link>
+      <router-link to="/login" tag="button" v-if="!getMemberName">
+        <v-btn text>
+          <span>Login</span>
+        </v-btn>
+      </router-link>
+      <v-btn text v-if="getMemberName" @click="userLogout()">
+        <span class="mr-2">{{getMemberName}}님</span>
+        <v-icon>mdi-logout-variant</v-icon>
       </v-btn>
     </v-app-bar>
 
@@ -44,13 +40,34 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
+import axios from "axios";
+
 export default {
-  name: 'App',
+  name: "App",
 
-  components: {
+  computed: {
+    ...mapGetters({
+      getMemberName: "members/getMemberName"
+    })
   },
-
-  data: () => ({
-  }),
+  methods: {
+    ...mapActions({
+        resetMemberName: 'members/resetMemberName'
+    }),
+    async userLogout() {
+      if (window.confirm("정말 로그아웃 하시겠습니까?")) {
+        axios.post("http://localhost:4000/api/authorizes/logout", {},
+          {
+            withCredentials: true
+          }
+        )
+        .then(async () => {
+          await this.resetMemberName();
+          await this.$router.push({ path: '/' });
+        });
+      }
+    }
+  }
 };
 </script>
