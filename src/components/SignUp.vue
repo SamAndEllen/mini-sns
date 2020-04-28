@@ -92,11 +92,14 @@ export default {
 
       if (!this.errors.any() && this.agreeTOS && this.agreePrivacy) {
         axios.post('http://localhost:4000/api/members',
-          { name: this.userName,
+          {
+            name: this.userName,
             email: this.email,
             password: this.password,
             agreeTOS: this.agreeTOS,
             agreePrivacy: this.agreePrivacy
+          }, {
+            withCredentials: true
           }
         )
         .then(async res => {
