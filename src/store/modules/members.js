@@ -14,7 +14,7 @@ const actions = {
 
 const mutations = {
     setName(state, memberName) {
-        state.name = memberName
+        state.name = memberName;
     }
 }
 
