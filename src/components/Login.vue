@@ -18,12 +18,7 @@
     </v-row>
     <v-row no-gutters>
       <v-col cols="12" md="12">
-        <v-text-field
-          type="password"
-          v-model="password"
-          label="비밀번호"
-          name="password"
-          ref="password"
+        <v-text-field type="password" v-model="password" label="비밀번호" name="password" ref="password"
           v-validate="{ required: true, regex: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/ }"
         />
         <v-alert
@@ -44,6 +39,7 @@
     </v-row>
   </v-container>
 </template>
+
 <script>
 import axios from "axios";
 
@@ -59,16 +55,19 @@ export default {
 
       if (!this.errors.any()) {
         axios.post("http://localhost:4000/api/authorizes/login",
-            {
-              email: this.email,
-              password: this.password
-            }, {
-              withCredentials: true
-            }
-          )
-          .then(async () => {
-            await this.$router.push({ path: '/member' });
-          });
+          {
+            email: this.email,
+            password: this.password
+          }, {
+            withCredentials: true
+          }
+        )
+        .then(async () => {
+          await this.$router.push({ path: '/member' });
+        })
+        .catch(err => {
+          alert(err.response.data.error);
+        });
       }
     }
   }

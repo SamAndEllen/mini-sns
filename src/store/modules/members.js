@@ -9,6 +9,9 @@ const getters = {
 const actions = {
     setMemberName({ commit }, memberName) {
         commit('setName', memberName);
+    },
+    resetMemberName({ commit }) {
+        commit('setName', '');
     }
 }
 
