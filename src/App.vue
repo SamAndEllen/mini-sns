@@ -1,6 +1,8 @@
 <template>
   <v-app>
     <v-app-bar app color="white" flat>
+      <v-spacer></v-spacer>
+
       <router-link to="/" tag="button">
         <div class="d-flex align-center">
           <v-img
@@ -36,16 +38,37 @@
     <v-content>
       <router-view></router-view>
     </v-content>
+
+    <v-bottom-navigation
+      color="indigo"
+      flat
+      fixed
+      grow
+    >
+      <v-btn icon @click="goToPath('/')">
+        <v-icon>mdi-home</v-icon>
+      </v-btn>
+
+      <new-feed />
+
+      <v-btn icon @click="goToPath('/member')">
+        <v-icon>mdi-account</v-icon>
+      </v-btn>
+    </v-bottom-navigation>
+
   </v-app>
 </template>
 
 <script>
+import NewFeed from "./components/NewFeed";
 import { mapActions, mapGetters } from "vuex";
 import axios from "axios";
 
 export default {
   name: "App",
-
+  components: {
+    NewFeed
+  },
   computed: {
     ...mapGetters({
       getMemberName: "members/getMemberName"
@@ -67,6 +90,9 @@ export default {
           await this.$router.push({ path: '/' });
         });
       }
+    },
+    goToPath(path) {
+      this.$router.push({ path });
     }
   }
 };

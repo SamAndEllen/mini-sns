@@ -16,6 +16,7 @@
     <v-row no-gutters>
       <v-col cols="12" md="12">
         <feed
+          class="mb-3"
           v-for="(feed, i) in feeds"
           :key="i"
           :feedId="feed.id"
@@ -35,7 +36,7 @@
 
 <script>
 import axios from "axios";
-import Feed from "./Feed";
+import Feed from "../components/Feed";
 
 export default {
   components: {

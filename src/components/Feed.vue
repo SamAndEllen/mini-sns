@@ -27,7 +27,9 @@
         <a v-for="(hashtag, i) in hashtags" :key="i" @click="filterFeed(i)">#{{ hashtag }} </a>
     </v-card-text>
 
-    <v-card-actions class="pa-0 pl-1">
+    <v-divider class="ma-3"></v-divider>
+
+    <v-card-actions class="pa-0 pl-1 mb-2">
         <v-btn text class="caption">
             <v-icon size="14">mdi-message</v-icon>
             <span class="ml-2">{{ messageCount ? messageCount : 0 }}</span>

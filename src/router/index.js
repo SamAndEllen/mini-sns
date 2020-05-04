@@ -3,18 +3,24 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-import Home from "../components/Home";
-import Login from "../components/Login";
-import Member from "../components/Member";
-import SignUp from "../components/SignUp";
+import Layout from "../components/Layout";
+import Home from "../pages/Home";
+import Login from "../pages/Login";
+import Member from "../pages/Member";
+import SignUp from "../pages/SignUp";
 
 const router = new VueRouter({
     mode: 'history',
     routes: [
-      { path: '/', component: Home },
-      { path: '/login', component: Login },
-      { path: '/member', component: Member },
-      { path: '/signup', component: SignUp }
+      { 
+        path: '/', component: Layout,
+        children: [
+          { path: '/', component: Home },
+          { path: 'login', component: Login },
+          { path: 'member', component: Member },
+          { path: 'signup', component: SignUp }
+        ]
+      },
     ]
   })
   
